@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futsal Booking System</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      background: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    .login-page{
+      height: 100vh;
+      background: linear-gradient(135deg,#0f172a,#1e293b,#334155);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .login-card{
+      width: 400px;
+      border-radius: 20px;
+      padding: 30px;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .sidebar{
+      width: 250px;
+      height: 100vh;
+      background: #0f172a;
+      position: fixed;
+      color: white;
+      padding: 30px 20px;
+    }
+
+    .sidebar h2{
+      font-weight: bold;
+      margin-bottom: 40px;
+    }
+
+    .sidebar a{
+      display: block;
+      text-decoration: none;
+      color: white;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover{
+      background: #1e293b;
+      transform: translateX(5px);
+    }
+
+    .main-content{
+      margin-left: 250px;
+      padding: 30px;
+    }
+
+    .topbar{
+      background: white;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      margin-bottom: 25px;
+    }
+
+    .card-box{
+      border-radius: 20px;
+      padding: 25px;
+      color: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card-box:hover{
+      transform: translateY(-5px);
+    }
+
+    .bg1{ background: linear-gradient(135deg,#2563eb,#1d4ed8); }
+    .bg2{ background: linear-gradient(135deg,#16a34a,#15803d); }
+    .bg3{ background: linear-gradient(135deg,#dc2626,#b91c1c); }
+
+    .content-card{
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      margin-top: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    canvas{
+      border:2px dashed #334155;
+      border-radius:10px;
+      background:white;
+    }
+
+    .btn-custom{
+      border-radius: 10px;
+      padding: 10px 20px;
+    }
+
+    video{
+      border-radius: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-page" id="loginPage">
+  <div class="login-card">
+    <h2 class="text-center mb-4 fw-bold">⚽ FUTSAL BOOKING</h2>
+
+    <input type="text" class="form-control mb-3" placeholder="Username">
+    <input type="password" class="form-control mb-3" placeholder="Password">
+
+    <button class="btn btn-dark w-100 btn-custom" onclick="login()">
+      Login
+    </button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboardPage" style="display:none;">
+
+  <div class="sidebar">
+    <h2>⚽ FUTSAL</h2>
+
+    <a href="#">🏠 Dashboard</a>
+    <a href="#">📋 Booking</a>
+    <a href="#">🏟️ Lapangan</a>
+    <a href="#">📁 Upload File</a>
+    <a href="#">📊 Laporan</a>
+  </div>
+
+  <div class="main-content">
+
+    <div class="topbar d-flex justify-content-between align-items-center">
+      <div>
+        <h3 class="fw-bold">Dashboard Admin</h3>
+        <p>Selamat datang di Sistem Penyewaan Lapangan Futsal</p>
+      </div>
+
+      <button class="btn btn-danger btn-custom">Logout</button>
+    </div>
+
+    <!-- CARD -->
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card-box bg1">
+          <h5>Total Booking</h5>
+          <h2>25</h2>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card-box bg2">
+          <h5>Total Pelanggan</h5>
+          <h2>40</h2>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card-box bg3">
+          <h5>Total Lapangan</h5>
+          <h2>5</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="content-card">
+      <h4 class="mb-3">Video Lapangan</h4>
+
+      <video width="100%" controls autoplay muted>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- AUDIO -->
+    <div class="content-card">
+      <h4 class="mb-3">Audio Notifikasi</h4>
+
+      <audio controls>
+        <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mp3">
+      </audio>
+    </div>
+
+    <!-- DATATABLE -->
+    <div class="content-card">
+      <div class="d-flex justify-content-between mb-3">
+        <h4>Data Booking</h4>
+
+        <button class="btn btn-primary btn-custom" data-bs-toggle="modal" data-bs-target="#bookingModal">
+          + Tambah Booking
+        </button>
+      </div>
+
+      <table id="bookingTable" class="display">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Lapangan</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Salwa</td>
+            <td>Lapangan A</td>
+            <td>22 Mei 2026</td>
+            <td><span class="badge bg-success">Selesai</span></td>
+            <td>
+              <button class="btn btn-warning btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm">Hapus</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>2</td>
+            <td>Andi</td>
+            <td>Lapangan B</td>
+            <td>24 Mei 2026</td>
+            <td><span class="badge bg-primary">Booking</span></td>
+            <td>
+              <button class="btn btn-warning btn-sm">Edit</button>
+              <button class="btn btn-danger btn-sm">Hapus</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- UPLOAD FILE -->
+    <div class="content-card">
+      <h4 class="mb-3">Upload Bukti Pembayaran</h4>
+
+      <input type="file" class="form-control" multiple>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="content-card">
+      <h4 class="mb-3">Tanda Tangan Digital</h4>
+
+      <canvas id="signature" width="600" height="200"></canvas>
+
+      <br><br>
+
+      <button class="btn btn-danger btn-custom" onclick="clearCanvas()">
+        Hapus TTD
+      </button>
+    </div>
+
+    <!-- EXPORT -->
+    <div class="content-card mb-5">
+      <h4 class="mb-3">Export Data</h4>
+
+      <button class="btn btn-success btn-custom">Export Excel</button>
+      <button class="btn btn-danger btn-custom">Export PDF</button>
+      <button class="btn btn-secondary btn-custom">Print</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="bookingModal">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-4">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Booking</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="text" id="namaPelanggan" class="form-control mb-3" placeholder="Nama Pelanggan">
+
+        <select id="lapangan" class="form-control mb-3">
+          <option>Lapangan A</option>
+          <option>Lapangan B</option>
+          <option>Lapangan C</option>
+        </select>
+
+        <input type="date" id="tanggalBooking" class="form-control mb-3">
+        <input type="text" class="form-control mb-3" placeholder="Nama Pelanggan">
+
+        <select class="form-control mb-3">
+          <option>Lapangan A</option>
+          <option>Lapangan B</option>
+          <option>Lapangan C</option>
+        </select>
+
+        <input type="date" class="form-control mb-3">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-custom" onclick="tambahBooking()">Simpan</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function login(){
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('dashboardPage').style.display = 'block';
+  }
+
+  $(document).ready(function(){
+    $('#bookingTable').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+        'copy',
+        'csv',
+        'excel',
+        'pdf',
+        'print'
+      ]
+    });
+  });
+
+  // CANVAS
+  const canvas = document.getElementById('signature');
+  const ctx = canvas.getContext('2d');
+
+  let drawing = false;
+
+  canvas.addEventListener('mousedown', () => drawing = true);
+
+  canvas.addEventListener('mouseup', () => {
+    drawing = false;
+    ctx.beginPath();
+  });
+
+  canvas.addEventListener('mousemove', draw);
+
+  function draw(e){
+    if(!drawing) return;
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.offsetX, e.offsetY);
+  }
+
+  function clearCanvas(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+
+  // TAMBAH BOOKING
+  function tambahBooking(){
+
+    const nama = document.getElementById('namaPelanggan').value;
+    const lapangan = document.getElementById('lapangan').value;
+    const tanggal = document.getElementById('tanggalBooking').value;
+
+    if(nama === '' || tanggal === ''){
+      alert('Isi data terlebih dahulu');
+      return;
+    }
+
+    const table = $('#bookingTable').DataTable();
+
+    table.row.add([
+      table.rows().count() + 1,
+      nama,
+      lapangan,
+      tanggal,
+      '<span class="badge bg-primary">Booking</span>',
+      '<button class="btn btn-warning btn-sm">Edit</button> <button class="btn btn-danger btn-sm">Hapus</button>'
+    ]).draw(false);
+
+    alert('Booking berhasil ditambahkan');
+
+    document.getElementById('namaPelanggan').value = '';
+    document.getElementById('tanggalBooking').value = '';
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById('bookingModal'));
+    modal.hide();
+  }
+</script>
+
+</body>
+</html>
